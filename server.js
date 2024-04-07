@@ -1,11 +1,11 @@
 const http = require("http");
 const mongoose = require("mongoose");
-const Tasks = require("./models/task.module.js");
+const Tasks = require("./models/task.model.js");
 const express = require("express");
 const taskRoutes = require("./routes/task.route.js");
 require("dotenv").config();
-
 const app = express();
+const port = process.env.PORT;
 
 //middleware for json
 app.use(express.json());
@@ -16,11 +16,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api/tasks", taskRoutes);
 
 //home
-app.get("/", function (request, response) {
-  response.send("<h1>Чо ты тут забыл?<h1>");
+app.get("/express_backend", function (req, res) {
+  res.send({ express: "Сервер поднят" });
 });
 
-app.listen(3000);
+// app.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/index.html");
+// });
+
+app.listen(port, () => console.log(`Listening on port: ${port}`));
 
 //connect to MongoDB
 mongoose

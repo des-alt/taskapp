@@ -1,0 +1,24 @@
+ul {
+    border: 3px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+li {
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    /* Равномерное распределение элементов */
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+
+
+}
+
+span {
+    flex-grow: 1;
+    max-width: 60%;
+}
+

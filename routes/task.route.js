@@ -1,5 +1,5 @@
 const express = require("express");
-const Tasks = require("../models/task.module.js");
+const Tasks = require("../models/task.model.js");
 const routes = express.Router();
 const {
   getTasks,

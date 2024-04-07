@@ -1,15 +1,16 @@
-const Tasks = require("../models/task.module");
+const Tasks = require("../models/task.model");
 
 const getTasks = async (req, res) => {
   try {
     const tasks = await Tasks.find({});
     res.status(200).json(tasks);
+    console.log(tasks);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-const getTask = async () => {
+const getTask = async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Tasks.findById(id);
@@ -19,7 +20,7 @@ const getTask = async () => {
   }
 };
 
-const createTask = async () => {
+const createTask = async (req, res) => {
   try {
     const task = await Tasks.create(req.body);
     res.status(200).json(task);
@@ -28,7 +29,7 @@ const createTask = async () => {
   }
 };
 
-const updateTask = async () => {
+const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Tasks.findByIdAndUpdate(id, req.body);
@@ -42,7 +43,7 @@ const updateTask = async () => {
   }
 };
 
-const deleteTask = async () => {
+const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
     const task = await Tasks.findByIdAndDelete(id);
