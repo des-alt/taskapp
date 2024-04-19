@@ -1,22 +1,14 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AllTasksList from "./components/AllTasksList";
 import OneTaskList from "./components/OneTaskList";
 import Header from "./components/Header";
+import Modal from "./components/Modal/Modal";
 
 function App() {
-  const [state, setState] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  useEffect(() => {
-    fetch("/api/tasks")
-      .then((res) => res.json())
-      .then((res) => {
-        const tasksArray = Object.values(res);
-        setState(tasksArray);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  
 
   return (
     <>
@@ -27,7 +19,7 @@ function App() {
           {selectedTask ? (
             <OneTaskList task={selectedTask} />
           ) : (
-            <AllTasksList tasks={state} />
+            <AllTasksList  />
           )}
         </div>
       </main>

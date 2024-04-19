@@ -1,29 +1,27 @@
 ul {
-    border: 3px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 20px;
+  border: 3px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 li {
-    padding: 6px;
-    display: flex;
-    justify-content: space-between;
-    /* Равномерное распределение элементов */
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-
-
+  padding: 6px;
+  display: flex;
+  /* Равномерное распределение элементов */
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 span {
-    flex-grow: 1;
-    max-width: 60%;
+  max-width: 60%;
+  height: fit-content;
+  margin: 1rem;
 }
-input{
-    
-}
-.control{
-    justify-items: space-between;
+.control {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin: 0 1rem 0 1rem;
 }
