@@ -21,4 +21,9 @@ span {
     flex-grow: 1;
     max-width: 60%;
 }
-
+input{
+    
+}
+.control{
+    justify-items: space-between;
+}

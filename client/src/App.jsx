@@ -19,25 +19,19 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <div>
-        <Header />
-        {selectedTask ? (
-          <OneTaskList task={selectedTask} />
-        ) : (
-          <AllTasksList tasks={state} />
-        )}
-      </div>
+    <>
+      <Header />
 
-      {/* <div>
-        {state.map((item) => (
-          <ul className="ul" key={item.title}>
-            <AllTasksList key={item.title} {...item} />
-            
-          </ul>
-        ))}
-      </div> */}
-    </div>
+      <main className="App">
+        <div>
+          {selectedTask ? (
+            <OneTaskList task={selectedTask} />
+          ) : (
+            <AllTasksList tasks={state} />
+          )}
+        </div>
+      </main>
+    </>
   );
 }
 
