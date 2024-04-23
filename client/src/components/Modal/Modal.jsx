@@ -34,22 +34,21 @@ const Modal = ({ isOpen, onClose, Method, isEdit, Task }) => {
     if (isEdit) {
       fetchUrl = "/api/tasks/" + _id;
     }
-      fetch(fetchUrl, {
-        method: Method,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(task),
-      }).then(() => console.log("Task added"));
+    fetch(fetchUrl, {
+      method: Method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    }).then(() => console.log("Task added"));
 
     onClose();
   };
 
-  const handleClickOutside = (e) => {
-    if (modalRef.current && !modalRef.current.contains(e.target)) {
-      onClose();
-    }
-  };
-
-  React.useEffect(() => {
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        onClose();
+      }
+    };
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {
@@ -58,7 +57,7 @@ const Modal = ({ isOpen, onClose, Method, isEdit, Task }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   return (
     <>
