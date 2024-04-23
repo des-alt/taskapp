@@ -1,19 +1,28 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 import "./AllTasksList.css";
-import Modal from "./Modal/Modal";
+import Modal from "../Modal/Modal";
 
 function AllTasksList() {
   const [tasks, setTasks] = useState([]);
+  const [task, setTask] = useState([]);
   const [modal, setModal] = useState(false);
-  const [close, setClose] = useState(false);
+  const [method, setMethod] = useState(null);
+  const [edit, setEdit] = useState(false);
 
   const deleteTask = useCallback((id) => {
-    console.log(`Лог deleteTask: ${id}`);
+    fetch("/api/tasks/" + id, {
+      method: "DELETE",
+    }).then(() => console.log(`Deleted task: ${id}`));
   }, []);
 
-  const editTask = useCallback((id) => {
-    console.log(`Лог editTask: ${id}`);
+  const editTask = useCallback((soloTask) => {
+    console.log(`Лог editTask: ${soloTask}`);
+    setModal(true);
+
+    setEdit(true);
+    setMethod("PUT");
+    setTask(soloTask);
   }, []);
 
   useEffect(() => {
@@ -28,7 +37,7 @@ function AllTasksList() {
 
   return (
     <div>
-      <section className="control">
+      <section className='control'>
         <h3>All Tasks</h3>
         <section>
           <button>All Tasks</button>
@@ -36,6 +45,7 @@ function AllTasksList() {
           <button
             onClick={() => {
               setModal(true);
+              setMethod("POST");
             }}
           >
             Add Task
@@ -47,6 +57,9 @@ function AllTasksList() {
         onClose={() => {
           setModal(false);
         }}
+        Method={method}
+        isEdit={edit}
+        Task={task}
       ></Modal>
       <ul>
         {tasks.map((task) => (
@@ -55,7 +68,7 @@ function AllTasksList() {
             <span>{task.tags}</span>
             <span>{task.body}</span>
             <section>
-              <button onClick={() => editTask(task._id)}>Edit</button>
+              <button onClick={() => editTask(task)}>Edit</button>
               <button onClick={() => deleteTask(task._id)}>Delete</button>
             </section>
           </li>

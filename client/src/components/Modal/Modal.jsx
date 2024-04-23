@@ -1,10 +1,20 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Modal.css";
-const Modal = ({ isOpen, onClose }) => {
+const Modal = ({ isOpen, onClose, Method, isEdit, Task }) => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState("");
   const [body, setBody] = useState("");
+  const [_id, setId] = useState(null);
   const modalRef = useRef(null);
+
+  useEffect(() => {
+    if (isEdit) {
+      setTitle(Task.title);
+      setBody(Task.body);
+      setTags(Task.tags);
+      setId(Task._id);
+    }
+  }, [isEdit, Task]);
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -19,9 +29,16 @@ const Modal = ({ isOpen, onClose }) => {
   };
 
   const handleSubmit = () => {
-    console.log("Title:", title);
-    console.log("Tags:", tags);
-    console.log("Body:", body);
+    const task = { _id, title, body, tags };
+    let fetchUrl = "/api/tasks";
+    if (isEdit) {
+      fetchUrl = "/api/tasks/" + _id;
+    }
+      fetch(fetchUrl, {
+        method: Method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(task),
+      }).then(() => console.log("Task added"));
 
     onClose();
   };
@@ -32,44 +49,42 @@ const Modal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Добавляем слушатель клика для закрытия модального окна при клике вне его области
   React.useEffect(() => {
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
 
   return (
     <>
       {isOpen && (
-        <div className="modal-overlay">
-          <div ref={modalRef} className="modal">
-            
+        <div className='modal-overlay'>
+          <div ref={modalRef} className='modal'>
             <h2>Введите данные:</h2>
             <input
-              type="text"
-              placeholder="Заголовок"
+              type='text'
+              placeholder='Заголовок'
               value={title}
               onChange={handleTitleChange}
             />
             <input
-              type="text"
-              placeholder="Теги"
+              type='text'
+              placeholder='Теги'
               value={tags}
               onChange={handleTagsChange}
             />
             <textarea
-              placeholder="Текст"
+              placeholder='Текст'
               value={body}
               onChange={handleBodyChange}
             />
             <button onClick={handleSubmit}>Отправить</button>
-            <button className="close-button" onClick={onClose}>
+            <button className='close-button' onClick={onClose}>
               Отмена
             </button>
           </div>

@@ -1,9 +1,8 @@
 import "./App.css";
 import { useState } from "react";
-import AllTasksList from "./components/AllTasksList";
+import AllTasksList from "./components/AllTasksList/AllTasksList";
 import OneTaskList from "./components/OneTaskList";
-import Header from "./components/Header";
-import Modal from "./components/Modal/Modal";
+import Header from "./components/Header/Header";
 
 function App() {
   const [selectedTask, setSelectedTask] = useState(null);
